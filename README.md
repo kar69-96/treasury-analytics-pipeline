@@ -15,6 +15,7 @@ The pipeline runs 24/7 in the cloud via GitHub Actions, ensuring Excel and other
 - **Postgres Database**: Managed service (Neon/Supabase/RDS) with raw tables and normalized views
 - **SQL Views**: `fact_fx_rates_daily`, `fact_interest_rates_daily` provide clean, normalized data
 
+
 ## Setup
 
 ### Prerequisites
@@ -51,6 +52,7 @@ The pipeline runs 24/7 in the cloud via GitHub Actions, ensuring Excel and other
 ### Views (Use These in Excel)
 - **`fact_fx_rates_daily`**: Clean FX rates, filtered NULLs, sorted by date
 - **`fact_interest_rates_daily`**: Interest rates converted to decimal (5.5% → 0.055)
+
 
 ## Excel Integration
 
