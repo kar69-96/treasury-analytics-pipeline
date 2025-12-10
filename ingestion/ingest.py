@@ -19,7 +19,30 @@ def get_postgres_engine():
     postgres_url = os.getenv("POSTGRES_URL")
     if not postgres_url:
         raise ValueError("POSTGRES_URL environment variable is required")
-    return create_engine(postgres_url)
+    
+    # Debug: Log connection string info (without exposing credentials)
+    url_parts = postgres_url.split("@")
+    if len(url_parts) > 1:
+        host_part = url_parts[1].split("/")[0]
+        print(f"Connecting to host: {host_part.split('?')[0]}")
+    
+    # Ensure the connection string is properly formatted
+    # SQLAlchemy expects postgresql:// or postgresql+psycopg2://
+    if not postgres_url.startswith(("postgresql://", "postgresql+psycopg2://", "postgres://")):
+        # Try to fix common issues
+        if postgres_url.startswith("psql "):
+            # Remove 'psql ' prefix if present
+            postgres_url = postgres_url.replace("psql ", "").strip("'\"")
+        if not postgres_url.startswith("postgresql://"):
+            raise ValueError(f"Invalid POSTGRES_URL format. Must start with postgresql://. Got: {postgres_url[:30]}...")
+    
+    try:
+        return create_engine(postgres_url, connect_args={"sslmode": "require"})
+    except Exception as e:
+        print(f"Error creating engine: {e}")
+        print(f"Connection string length: {len(postgres_url)}")
+        print(f"Connection string preview: {postgres_url[:50]}...")
+        raise
 
 
 def fetch_fred_rates(fred_api_key: str) -> pd.DataFrame:

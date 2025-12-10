@@ -8,6 +8,18 @@ After pushing this repository to GitHub, add the following secrets:
 2. Click **New repository secret** and add:
 
 ### Secret 1: POSTGRES_URL
+**IMPORTANT**: Copy ONLY the connection string, NOT the `psql` command or quotes!
+
+```
+postgresql://neondb_owner:npg_pSjZO1dUo7EW@ep-icy-dew-a4rn7s84-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+```
+
+**Do NOT include:**
+- ❌ `psql` prefix
+- ❌ Single quotes `'` around the string
+- ❌ Any extra spaces
+
+**The secret should be exactly:**
 ```
 postgresql://neondb_owner:npg_pSjZO1dUo7EW@ep-icy-dew-a4rn7s84-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
 ```

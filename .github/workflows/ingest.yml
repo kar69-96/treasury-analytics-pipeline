@@ -33,5 +33,12 @@ jobs:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: |
+          # Debug: Check if POSTGRES_URL is set (without exposing full value)
+          if [ -z "$POSTGRES_URL" ]; then
+            echo "ERROR: POSTGRES_URL is not set"
+            exit 1
+          fi
+          echo "POSTGRES_URL length: ${#POSTGRES_URL}"
+          echo "POSTGRES_URL starts with: ${POSTGRES_URL:0:50}..."
           python ingest.py
 
