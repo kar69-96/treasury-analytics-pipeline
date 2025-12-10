@@ -15,7 +15,7 @@ The pipeline runs 24/7 in the cloud via GitHub Actions, ensuring Excel and other
 - **Postgres Database**: Managed service (Neon/Supabase/RDS) with raw tables and normalized views
 - **SQL Views**: `fact_fx_rates_daily`, `fact_interest_rates_daily` provide clean, normalized data
 
-##Setup
+## Setup
 
 ### Prerequisites
 1. **FRED API Key**: Get free key from https://fred.stlouisfed.org/docs/api/api_key.html
