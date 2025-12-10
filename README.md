@@ -57,7 +57,6 @@ The pipeline runs 24/7 in the cloud via GitHub Actions, ensuring Excel and other
 ## Excel Integration
 
 Excel connects directly to Postgres views via ODBC:
-- **Read-Only**: Excel never writes to database
 - **Auto-Refresh**: Data refreshes automatically when Excel opens
 - **Always Current**: Reflects most recent successful ingestion
 - **No Transformation Logic**: All normalization lives in SQL views
