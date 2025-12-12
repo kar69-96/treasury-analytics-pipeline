@@ -1,5 +1,8 @@
 {
   "functions": {
+    "api/data.js": {
+      "maxDuration": 10
+    },
     "api/fx-rates.js": {
       "maxDuration": 10
     },

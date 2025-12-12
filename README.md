@@ -65,11 +65,16 @@ Excel connects directly to Postgres views via ODBC:
 
 This method works on **any platform** (Windows, Mac, Excel Online) and requires **no driver downloads**. It works perfectly with shared spreadsheets.
 
-**Quick Start for Neon Users**: See **Option C** below for step-by-step Vercel deployment. Once deployed, you'll get URLs like:
-- `https://your-app.vercel.app/api/fx-rates`
-- `https://your-app.vercel.app/api/interest-rates`
+**Quick Start for Neon Users**: ✅ **Already Deployed!** Use this URL in Excel:
+- **Combined Data (Recommended)**: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data`
+  - Returns both FX rates and interest rates in one call
+- **Individual Endpoints**:
+  - FX Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/fx-rates`
+  - Interest Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/interest-rates`
 
-Use these URLs in Excel's "From Web" connector - no drivers needed!
+**Note**: Vercel deployment URLs may change. Check your [Vercel dashboard](https://vercel.com/kar69-96s-projects/treasury-api) for the latest production URL.
+
+Use these URLs in Excel's "From Web" connector - no drivers needed! See **Option C** below for details.
 
 #### Option A: Using Supabase REST API (If using Supabase)
 
@@ -109,7 +114,10 @@ Many managed Postgres providers offer REST APIs:
 
 #### Option C: Deploy API Endpoint for Neon (Recommended for Neon Users) ⭐
 
-This repository includes ready-to-deploy API endpoints. Deploy to Vercel (free) in 5 minutes:
+**✅ Already Deployed!** Your API is live at:
+- **Combined Endpoint**: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data` (returns both FX rates and interest rates)
+
+**Note**: If you need to redeploy or set up a new deployment, follow these steps:
 
 **Step 1: Install Vercel CLI** (one-time setup):
 ```bash
@@ -132,19 +140,21 @@ vercel
 
 **Step 4: Connect Excel**:
 - **Data** → **Get Data** → **From Other Sources** → **From Web**
-- Enter URL for FX rates:
+- Enter the combined data URL:
   ```
-  https://your-app.vercel.app/api/fx-rates
-  ```
-- Or for interest rates:
-  ```
-  https://your-app.vercel.app/api/interest-rates
+  https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data
   ```
 - Click **OK** → Excel will load the JSON data automatically
+- The response contains both `fx_rates` and `interest_rates` in one call
 
-**✅ Your Excel URLs** (replace `your-app` with your Vercel app name):
-- FX Rates: `https://your-app.vercel.app/api/fx-rates`
-- Interest Rates: `https://your-app.vercel.app/api/interest-rates`
+**✅ Your Excel URLs** (deployed and ready to use):
+- **Combined Data (Recommended)**: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data`
+  - Returns both FX rates and interest rates in one response
+- **Individual Endpoints** (also available):
+  - FX Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/fx-rates`
+  - Interest Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/interest-rates`
+
+**Note**: Check your [Vercel dashboard](https://vercel.com/kar69-96s-projects/treasury-api) for the latest production URL if this one doesn't work.
 
 **Benefits**: 
 - ✅ Works on Mac, Windows, Excel Online
