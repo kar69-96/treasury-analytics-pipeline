@@ -5,21 +5,23 @@
 Your API has been successfully deployed to Vercel. Here are your Excel connection URLs:
 
 ### Combined Data API (Recommended) ⭐
-Returns both FX rates and interest rates in one call:
+Returns both FX rates and interest rates in one call - **Stable Production URL**:
 ```
-https://treasury-fb993u8jc-kar69-96s-projects.vercel.app/api/data
+https://treasury-api-tawny.vercel.app/api/data
 ```
 
 ### Individual Endpoints
 **FX Rates API:**
 ```
-https://treasury-fb993u8jc-kar69-96s-projects.vercel.app/api/fx-rates
+https://treasury-api-tawny.vercel.app/api/fx-rates
 ```
 
 **Interest Rates API:**
 ```
-https://treasury-fb993u8jc-kar69-96s-projects.vercel.app/api/interest-rates
+https://treasury-api-tawny.vercel.app/api/interest-rates
 ```
+
+**Note**: These are stable production URLs that won't change with deployments - perfect for sharing!
 
 ## ⚠️ Important: Disable Password Protection
 
@@ -38,8 +40,9 @@ Once password protection is disabled:
 1. Open Excel
 2. **Data** → **Get Data** → **From Other Sources** → **From Web**
 3. Paste the combined data URL (recommended):
-   - `https://treasury-fb993u8jc-kar69-96s-projects.vercel.app/api/data`
+   - `https://treasury-api-tawny.vercel.app/api/data`
    - This returns both FX rates and interest rates in one response
+   - **This is a stable URL** - safe to share in spreadsheets
 4. Click **OK**
 5. Excel will automatically parse the JSON and load the data
 6. Right-click the table → **Table** → **External Data Properties**
@@ -54,8 +57,8 @@ Once password protection is disabled:
 ## Testing
 
 After disabling password protection, test the URLs in your browser:
-- **Combined**: https://treasury-fb993u8jc-kar69-96s-projects.vercel.app/api/data (returns both datasets)
-- **FX Rates**: https://treasury-fb993u8jc-kar69-96s-projects.vercel.app/api/fx-rates
-- **Interest Rates**: https://treasury-fb993u8jc-kar69-96s-projects.vercel.app/api/interest-rates
+- **Combined**: https://treasury-api-tawny.vercel.app/api/data (returns both datasets)
+- **FX Rates**: https://treasury-api-tawny.vercel.app/api/fx-rates
+- **Interest Rates**: https://treasury-api-tawny.vercel.app/api/interest-rates
 
 You should see JSON data with your treasury rates.

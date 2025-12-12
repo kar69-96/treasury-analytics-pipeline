@@ -65,16 +65,15 @@ Excel connects directly to Postgres views via ODBC:
 
 This method works on **any platform** (Windows, Mac, Excel Online) and requires **no driver downloads**. It works perfectly with shared spreadsheets.
 
-**Quick Start for Neon Users**: ✅ **Already Deployed!** Use this URL in Excel:
-- **Combined Data (Recommended)**: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data`
+**Quick Start for Neon Users**: ✅ **Already Deployed!** Use this stable, shareable URL in Excel:
+- **Combined Data (Recommended)**: `https://treasury-api-tawny.vercel.app/api/data`
   - Returns both FX rates and interest rates in one call
-- **Individual Endpoints**:
-  - FX Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/fx-rates`
-  - Interest Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/interest-rates`
+  - **This is a stable production URL** - won't change with deployments
+- **Individual Endpoints** (also available):
+  - FX Rates: `https://treasury-api-tawny.vercel.app/api/fx-rates`
+  - Interest Rates: `https://treasury-api-tawny.vercel.app/api/interest-rates`
 
-**Note**: Vercel deployment URLs may change. Check your [Vercel dashboard](https://vercel.com/kar69-96s-projects/treasury-api) for the latest production URL.
-
-Use these URLs in Excel's "From Web" connector - no drivers needed! See **Option C** below for details.
+Use this URL in Excel's "From Web" connector - no drivers needed! See **Option C** below for details.
 
 #### Option A: Using Supabase REST API (If using Supabase)
 
@@ -114,8 +113,8 @@ Many managed Postgres providers offer REST APIs:
 
 #### Option C: Deploy API Endpoint for Neon (Recommended for Neon Users) ⭐
 
-**✅ Already Deployed!** Your API is live at:
-- **Combined Endpoint**: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data` (returns both FX rates and interest rates)
+**✅ Already Deployed!** Your API is live at (stable production URL):
+- **Combined Endpoint**: `https://treasury-api-tawny.vercel.app/api/data` (returns both FX rates and interest rates)
 
 **⚠️ IMPORTANT - Before Using in Excel**: 
 If you get "Cannot locate the Internet server" error in Excel, **disable password protection**:
@@ -146,21 +145,20 @@ vercel
 
 **Step 4: Connect Excel**:
 - **Data** → **Get Data** → **From Other Sources** → **From Web**
-- Enter the combined data URL:
+- Enter the combined data URL (stable production URL):
   ```
-  https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data
+  https://treasury-api-tawny.vercel.app/api/data
   ```
 - Click **OK** → Excel will load the JSON data automatically
 - The response contains both `fx_rates` and `interest_rates` in one call
 
-**✅ Your Excel URLs** (deployed and ready to use):
-- **Combined Data (Recommended)**: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data`
+**✅ Your Excel URLs** (stable production URLs - ready to share):
+- **Combined Data (Recommended)**: `https://treasury-api-tawny.vercel.app/api/data`
   - Returns both FX rates and interest rates in one response
+  - **This URL is stable and won't change** - perfect for sharing spreadsheets
 - **Individual Endpoints** (also available):
-  - FX Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/fx-rates`
-  - Interest Rates: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/interest-rates`
-
-**Note**: Check your [Vercel dashboard](https://vercel.com/kar69-96s-projects/treasury-api) for the latest production URL if this one doesn't work.
+  - FX Rates: `https://treasury-api-tawny.vercel.app/api/fx-rates`
+  - Interest Rates: `https://treasury-api-tawny.vercel.app/api/interest-rates`
 
 **Benefits**: 
 - ✅ Works on Mac, Windows, Excel Online
@@ -273,7 +271,7 @@ If the PostgreSQL Database option doesn't work, you can use Power Query directly
 - **"404 Not Found"**: Ensure the table/view name matches exactly (case-sensitive)
 - **"500 Internal Server Error"**: Database tables may not exist yet - run the ingestion workflow first
 - **Data not refreshing**: Right-click table → Refresh, or check "Refresh on open" in External Data Properties
-- **URL not working**: Check your [Vercel dashboard](https://vercel.com/kar69-96s-projects/treasury-api) for the latest production URL (Vercel URLs may change with new deployments)
+- **URL not working**: Use the stable production URL: `https://treasury-api-tawny.vercel.app/api/data` (this URL doesn't change with deployments)
 
 #### Direct Database Method (Method 2)
 - **"Driver not found"**: Install PostgreSQL ODBC driver (see Prerequisites in Method 2 section)
