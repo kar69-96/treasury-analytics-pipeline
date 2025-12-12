@@ -117,6 +117,12 @@ Many managed Postgres providers offer REST APIs:
 **✅ Already Deployed!** Your API is live at:
 - **Combined Endpoint**: `https://treasury-7vn29rkby-kar69-96s-projects.vercel.app/api/data` (returns both FX rates and interest rates)
 
+**⚠️ IMPORTANT - Before Using in Excel**: 
+If you get "Cannot locate the Internet server" error in Excel, **disable password protection**:
+1. Go to [vercel.com](https://vercel.com) → Project **treasury-api** → **Settings** → **Deployment Protection**
+2. Disable **"Password Protection"** or set to **"No Protection"**
+3. Save and try again in Excel
+
 **Note**: If you need to redeploy or set up a new deployment, follow these steps:
 
 **Step 1: Install Vercel CLI** (one-time setup):
@@ -258,10 +264,16 @@ If the PostgreSQL Database option doesn't work, you can use Power Query directly
 ### Troubleshooting
 
 #### Web API Method (Method 1)
-- **"Unable to connect"**: Verify your API URL is correct and accessible in a browser
+- **"Unable to open" / "Cannot locate the Internet server or proxy server"** (Excel Error):
+  - **Most Common Cause**: Vercel password protection is enabled
+  - **Fix**: Go to [vercel.com](https://vercel.com) → Your project (treasury-api) → **Settings** → **Deployment Protection** → Disable **"Password Protection"**
+  - **Alternative**: Check if the URL works in your browser first - if you see a password prompt, that's the issue
+  - **Also check**: Firewall/proxy settings, ensure Excel has internet access
 - **"401 Unauthorized"**: Check your API key is correct (for Supabase, use the anon/public key)
 - **"404 Not Found"**: Ensure the table/view name matches exactly (case-sensitive)
+- **"500 Internal Server Error"**: Database tables may not exist yet - run the ingestion workflow first
 - **Data not refreshing**: Right-click table → Refresh, or check "Refresh on open" in External Data Properties
+- **URL not working**: Check your [Vercel dashboard](https://vercel.com/kar69-96s-projects/treasury-api) for the latest production URL (Vercel URLs may change with new deployments)
 
 #### Direct Database Method (Method 2)
 - **"Driver not found"**: Install PostgreSQL ODBC driver (see Prerequisites in Method 2 section)
