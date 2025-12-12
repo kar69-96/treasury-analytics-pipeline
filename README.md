@@ -5,10 +5,24 @@ Automated, cloud-deployed data pipeline that ingests treasury interest rates and
 ## Objective
 
 Refresh workflows by automating the ingestion of:
-- **Interest Rates**: Treasury rates (2Y, 5Y, 10Y, 30Y) and Federal Reserve rates from FRED API
-- **Foreign Exchange Rates**: Major currency pairs (EUR, GBP, JPY, CAD, AUD, CHF, CNY, INR) from FRED API
+- **Interest Rates**: Treasury rates (2Y, 5Y, 10Y, 30Y) and Federal Reserve rates from **FRED API** (Federal Reserve Economic Data)
+- **Foreign Exchange Rates**: Major currency pairs (EUR, GBP, JPY, CAD, AUD, CHF, CNY, INR) from **FRED API**
 
 The pipeline runs 24/7 in the cloud via GitHub Actions, ensuring Excel and other clients always have access to the latest data without any local machine dependencies or manual intervention.
+
+### Data Source & Update Schedule
+
+**Data Source**: All data is pulled from the [FRED API](https://fred.stlouisfed.org/) (Federal Reserve Economic Data), a public database maintained by the Federal Reserve Bank of St. Louis.
+
+**Update Frequency**: 
+- The ingestion workflow runs **daily at 2 AM UTC** to fetch the latest available data from FRED
+- Data can also be manually triggered via GitHub Actions
+
+**Important Note on Data Delay**: 
+- FRED typically publishes data with a **1-2 day delay** from the actual observation date
+- For example, data for a Monday may not be available in FRED until Tuesday or Wednesday
+- The pipeline fetches the most recent data available from FRED at the time of ingestion
+- If you see data only up to a specific date (e.g., December 5th), this reflects the latest data point published by FRED, not a pipeline issue
 
 - **Ingestion Script** (`ingestion/ingest.py`): Python script that fetches from FRED API and writes to Postgres
 - **GitHub Actions Workflow**: Runs daily via cron, can be triggered manually
@@ -165,7 +179,9 @@ vercel
 4. Optionally: Set **"Refresh every X minutes"** for periodic updates while Excel is open
 5. Click **OK** and **Save** your Excel file
 
-✅ **Result**: Every time you (or anyone) opens the Excel file, it will automatically fetch the latest data from the database. Since the database updates daily at 2 AM UTC, you'll always see the most recent treasury rates when opening the file.
+✅ **Result**: Every time you (or anyone) opens the Excel file, it will automatically fetch the latest data from the database. Since the database updates daily at 2 AM UTC (pulling from FRED API), you'll always see the most recent treasury rates available from FRED when opening the file.
+
+**Note**: FRED data typically has a 1-2 day publication delay, so the most recent data point may be from 1-2 days ago depending on when FRED last published updates.
 
 **✅ Your Excel URLs** (stable production URLs - ready to share):
 - **Combined Data (Recommended)**: `https://treasury-api-tawny.vercel.app/api/data`
@@ -287,6 +303,7 @@ If the PostgreSQL Database option doesn't work, you can use Power Query directly
 - **"500 Internal Server Error"**: Database tables may not exist yet - run the ingestion workflow first
 - **Data not refreshing**: Right-click table → Refresh, or check "Refresh on open" in External Data Properties
 - **URL not working**: Use the stable production URL: `https://treasury-api-tawny.vercel.app/api/data` (this URL doesn't change with deployments)
+- **Data only shows up to a specific date (e.g., Dec 5th)**: This is normal - FRED publishes data with a 1-2 day delay. The pipeline fetches the latest data available from FRED. To get newer data, wait for FRED to publish it, then manually trigger the ingestion workflow or wait for the next scheduled run.
 
 #### Direct Database Method (Method 2)
 - **"Driver not found"**: Install PostgreSQL ODBC driver (see Prerequisites in Method 2 section)
@@ -300,4 +317,5 @@ If the PostgreSQL Database option doesn't work, you can use Power Query directly
 - **Refresh Settings**: Enable "Refresh on open" for always-current data
 - **Shared Workbooks**: Each user authenticates once; credentials are stored per-user (secure)
 - **Read-Only**: Excel never writes to the database; all changes are local to the spreadsheet
+- **Data Expectations**: Remember that data comes from FRED API with a 1-2 day publication delay. The most recent data point reflects what FRED has published, not necessarily today's date
 
