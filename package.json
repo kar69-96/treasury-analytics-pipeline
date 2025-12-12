@@ -1,0 +1,15 @@
+{
+  "name": "treasury-analytics-api",
+  "version": "1.0.0",
+  "description": "API endpoints for Treasury Analytics Excel integration",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "vercel": "^34.0.0"
+  }
+}

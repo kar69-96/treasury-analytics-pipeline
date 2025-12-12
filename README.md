@@ -65,6 +65,12 @@ Excel connects directly to Postgres views via ODBC:
 
 This method works on **any platform** (Windows, Mac, Excel Online) and requires **no driver downloads**. It works perfectly with shared spreadsheets.
 
+**Quick Start for Neon Users**: See **Option C** below for step-by-step Vercel deployment. Once deployed, you'll get URLs like:
+- `https://your-app.vercel.app/api/fx-rates`
+- `https://your-app.vercel.app/api/interest-rates`
+
+Use these URLs in Excel's "From Web" connector - no drivers needed!
+
 #### Option A: Using Supabase REST API (If using Supabase)
 
 Supabase automatically generates REST APIs for your tables. Connect Excel directly:
@@ -101,25 +107,50 @@ Many managed Postgres providers offer REST APIs:
 - **Supabase**: Use Option A above
 - **AWS RDS**: Can use API Gateway + Lambda (requires setup)
 
-#### Option C: Create Simple API Endpoint (One-Time Setup)
+#### Option C: Deploy API Endpoint for Neon (Recommended for Neon Users) ⭐
 
-If your provider doesn't have REST API, create a simple serverless function:
+This repository includes ready-to-deploy API endpoints. Deploy to Vercel (free) in 5 minutes:
 
-1. **Deploy to Vercel/Netlify** (free tier works):
-   ```javascript
-   // api/data.js
-   export default async function handler(req, res) {
-     const { Pool } = require('pg');
-     const pool = new Pool({ connectionString: process.env.POSTGRES_URL });
-     const result = await pool.query('SELECT * FROM fact_fx_rates_daily ORDER BY date DESC');
-     res.json(result.rows);
-   }
-   ```
+**Step 1: Install Vercel CLI** (one-time setup):
+```bash
+npm install -g vercel
+```
 
-2. **Connect Excel**:
-   - **Data** → **Get Data** → **From Web**
-   - Enter your API URL: `https://your-app.vercel.app/api/data`
-   - Click **OK**
+**Step 2: Deploy to Vercel**:
+```bash
+cd /path/to/Stripe_Treasury
+vercel
+```
+- Follow prompts (press Enter for defaults)
+- When asked for environment variables, add: `POSTGRES_URL` = your Neon connection string
+- Copy the deployment URL (e.g., `https://your-app.vercel.app`)
+
+**Step 3: Add Environment Variable in Vercel Dashboard**:
+1. Go to [vercel.com](https://vercel.com) → Your project → Settings → Environment Variables
+2. Add: `POSTGRES_URL` = your full Neon connection string
+3. Redeploy (or it will auto-deploy)
+
+**Step 4: Connect Excel**:
+- **Data** → **Get Data** → **From Other Sources** → **From Web**
+- Enter URL for FX rates:
+  ```
+  https://your-app.vercel.app/api/fx-rates
+  ```
+- Or for interest rates:
+  ```
+  https://your-app.vercel.app/api/interest-rates
+  ```
+- Click **OK** → Excel will load the JSON data automatically
+
+**✅ Your Excel URLs** (replace `your-app` with your Vercel app name):
+- FX Rates: `https://your-app.vercel.app/api/fx-rates`
+- Interest Rates: `https://your-app.vercel.app/api/interest-rates`
+
+**Benefits**: 
+- ✅ Works on Mac, Windows, Excel Online
+- ✅ No driver downloads needed
+- ✅ Share spreadsheets - URLs work for everyone
+- ✅ Always pulls live data from database
 
 ### Method 2: Direct Database Connection (Requires Driver)
 

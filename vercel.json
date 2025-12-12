@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/fx-rates.js": {
+      "maxDuration": 10
+    },
+    "api/interest-rates.js": {
+      "maxDuration": 10
+    }
+  }
+}
