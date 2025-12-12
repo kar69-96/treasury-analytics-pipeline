@@ -61,3 +61,78 @@ Excel connects directly to Postgres views via ODBC:
 - **Always Current**: Reflects most recent successful ingestion
 - **No Transformation Logic**: All normalization lives in SQL views
 
+## Excel Integration Guide (Step-by-Step)
+
+### Prerequisites
+1. **PostgreSQL ODBC Driver**: Download and install from [PostgreSQL ODBC Driver](https://www.postgresql.org/ftp/odbc/versions/msi/) (choose the latest version matching your system)
+2. **Database Connection String**: Your `POSTGRES_URL` from GitHub Secrets (format: `postgresql://user:password@host:port/database?sslmode=require`)
+
+### Setup Excel Connection (Easiest Method)
+
+#### Step 1: Create Data Connection
+1. Open Excel
+2. Go to **Data** tab → **Get Data** → **From Database** → **From PostgreSQL Database**
+3. In the dialog box, enter your connection details:
+   - **Server**: Extract from your `POSTGRES_URL` (e.g., `ep-icy-dew-a4rn7s84-pooler.us-east-1.aws.neon.tech`)
+   - **Database**: Extract from your `POSTGRES_URL` (e.g., `neondb`)
+   - **Port**: Usually `5432` (or extract from your URL)
+   - Click **OK**
+
+#### Step 2: Authenticate
+1. Enter your database **username** and **password** (from your `POSTGRES_URL`)
+2. Check **"Save my password"** (credentials stored securely on your machine)
+3. Click **Connect**
+
+#### Step 3: Select Data View
+1. In the Navigator window, select **"fact_fx_rates_daily"** or **"fact_interest_rates_daily"**
+2. Click **Load** (or **Transform Data** if you want to modify before loading)
+
+#### Step 4: Enable Auto-Refresh
+1. Right-click on the loaded table → **Table** → **External Data Properties**
+2. Check **"Refresh data when opening the file"**
+3. Optionally set **"Refresh every X minutes"** for live updates
+4. Click **OK**
+
+### Sharing Spreadsheets with Live Data
+
+When you share an Excel file with this connection:
+
+✅ **What Works Automatically:**
+- Connection string is embedded in the workbook
+- Each user authenticates **once** (first time they open)
+- Excel stores credentials securely **per-user** (not in the file)
+- Data refreshes automatically when any user opens the file
+- Always pulls **live data** from the database
+
+⚠️ **First-Time Setup for Recipients:**
+1. Recipient opens the shared Excel file
+2. Excel prompts for database credentials (username/password)
+3. Recipient enters credentials and checks **"Save my password"**
+4. Data loads and refreshes automatically on future opens
+
+### Alternative: Using Connection String Directly
+
+If you prefer to use the full connection string:
+
+1. **Data** → **Get Data** → **From Other Sources** → **From ODBC**
+2. Select your PostgreSQL driver
+3. In the connection string field, paste your full `POSTGRES_URL`:
+   ```
+   Driver={PostgreSQL Unicode};Server=your-host;Port=5432;Database=your-db;Uid=your-user;Pwd=your-password;SSLMode=require;
+   ```
+4. Click **OK** and select your view
+
+### Troubleshooting
+
+- **"Driver not found"**: Install PostgreSQL ODBC driver (see Prerequisites)
+- **Connection timeout**: Check firewall settings, ensure database allows your IP
+- **SSL errors**: Ensure `sslmode=require` is in your connection string
+- **Credentials prompt every time**: Check "Save my password" during authentication
+
+### Best Practices
+
+- **Use Views**: Always connect to `fact_fx_rates_daily` or `fact_interest_rates_daily`, not raw tables
+- **Refresh Settings**: Enable "Refresh on open" for always-current data
+- **Shared Workbooks**: Each user authenticates once; credentials are stored per-user (secure)
+- **Read-Only**: Excel never writes to the database; all changes are local to the spreadsheet
+
