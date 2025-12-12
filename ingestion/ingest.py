@@ -63,11 +63,14 @@ def fetch_fred_rates(fred_api_key: str) -> pd.DataFrame:
         "DEXUSEU": "U.S. / Euro Foreign Exchange Rate",
     }
     
+    # Set end date to today to ensure we get the latest data
+    today = datetime.now().strftime("%Y-%m-%d")
+    
     all_data = []
     
     for series_id, series_name in series_config.items():
         try:
-            data = fred.get_series(series_id, observation_start="2000-01-01")
+            data = fred.get_series(series_id, observation_start="2000-01-01", observation_end=today)
             if data is not None and len(data) > 0:
                 df = pd.DataFrame({
                     "date": data.index,
@@ -111,11 +114,14 @@ def fetch_fx_rates(fred_api_key: str) -> pd.DataFrame:
         "DEXINUS": ("INR", "Indian Rupees per USD"),  # INR/USD - need to invert
     }
     
+    # Set end date to today to ensure we get the latest data
+    today = datetime.now().strftime("%Y-%m-%d")
+    
     all_data = []
     
     for series_id, (currency, description) in fx_series_config.items():
         try:
-            data = fred.get_series(series_id, observation_start="2000-01-01")
+            data = fred.get_series(series_id, observation_start="2000-01-01", observation_end=today)
             if data is not None and len(data) > 0:
                 # Convert to rate_to_usd format
                 # For series like DEXUSEU (USD/EUR), we need 1/rate to get EUR/USD
