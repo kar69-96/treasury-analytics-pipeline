@@ -73,7 +73,9 @@ This method works on **any platform** (Windows, Mac, Excel Online) and requires 
   - FX Rates: `https://treasury-api-tawny.vercel.app/api/fx-rates`
   - Interest Rates: `https://treasury-api-tawny.vercel.app/api/interest-rates`
 
-Use this URL in Excel's "From Web" connector - no drivers needed! See **Option C** below for details.
+Use this URL in Excel's "From Web" connector - no drivers needed! 
+
+**Auto-Refresh**: After connecting, enable "Refresh data when opening the file" in connection properties so data updates automatically every time the file is opened. See **Option C** below for step-by-step instructions.
 
 #### Option A: Using Supabase REST API (If using Supabase)
 
@@ -98,9 +100,13 @@ Supabase automatically generates REST APIs for your tables. Connect Excel direct
      ```
    - Click **OK**
 
-4. **Enable Auto-Refresh**:
-   - Right-click table → **Table** → **External Data Properties**
+4. **Enable Auto-Refresh** (Important!):
+   - Go to **Data** → **Queries & Connections**
+   - Right-click your connection → **Properties**
    - Check **"Refresh data when opening the file"**
+   - Optionally: Set **"Refresh every X minutes"** for periodic updates
+   - Click **OK** and **Save** your file
+   - ✅ Now data will automatically refresh every time the file is opened!
 
 **✅ Benefits**: Works everywhere, no downloads, credentials in URL (can be shared), always live data
 
@@ -151,6 +157,15 @@ vercel
   ```
 - Click **OK** → Excel will load the JSON data automatically
 - The response contains both `fx_rates` and `interest_rates` in one call
+
+**Step 5: Enable Refresh on Open** (Important!):
+1. After data loads, go to **Data** → **Queries & Connections**
+2. Right-click your connection → **Properties**
+3. Check **"Refresh data when opening the file"**
+4. Optionally: Set **"Refresh every X minutes"** for periodic updates while Excel is open
+5. Click **OK** and **Save** your Excel file
+
+✅ **Result**: Every time you (or anyone) opens the Excel file, it will automatically fetch the latest data from the database. Since the database updates daily at 2 AM UTC, you'll always see the most recent treasury rates when opening the file.
 
 **✅ Your Excel URLs** (stable production URLs - ready to share):
 - **Combined Data (Recommended)**: `https://treasury-api-tawny.vercel.app/api/data`
