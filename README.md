@@ -83,5 +83,4 @@ This method works on **any platform** (Windows, Mac, Excel Online) and requires 
 
 **Use this URL in Excel's "From Web" connector if using Windows.**
 
-**Auto-Refresh**: After connecting, enable "Refresh data when opening the file" in connection properties so data updates automatically every time the file is opened. See **Option C** below for step-by-step instructions.
-
+**Auto-Refresh**: After connecting, enable "Refresh data when opening the file" in connection properties so data updates automatically every time the file is opened. 
