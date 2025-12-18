@@ -169,7 +169,7 @@ def fetch_fx_rates(fred_api_key: str) -> pd.DataFrame:
 
 def create_tables_if_not_exists(engine):
     """Create raw tables if they don't exist."""
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         # Create raw_fred_rates table
         conn.execute(text("""
             CREATE TABLE IF NOT EXISTS raw_fred_rates (
@@ -190,9 +190,8 @@ def create_tables_if_not_exists(engine):
                 PRIMARY KEY (date, currency)
             )
         """))
-        
-        conn.commit()
-        print("✓ Tables created/verified")
+    
+    print("✓ Tables created/verified")
 
 
 def write_to_postgres(df: pd.DataFrame, table_name: str, engine):
@@ -201,8 +200,7 @@ def write_to_postgres(df: pd.DataFrame, table_name: str, engine):
         table_name,
         engine,
         if_exists="replace",
-        index=False,
-        method="multi"
+        index=False
     )
     print(f"✓ Wrote {len(df)} rows to {table_name}")
 
@@ -225,14 +223,15 @@ def apply_sql_views(engine):
     # Split by semicolons and execute each statement
     statements = [s.strip() for s in views_sql.split(";") if s.strip() and not s.strip().startswith("--")]
     
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         for statement in statements:
             if statement:
                 try:
                     conn.execute(text(statement))
-                    conn.commit()
                 except Exception as e:
                     print(f"⚠ Warning: Error applying view statement: {e}")
+                    # Continue with other statements even if one fails
+                    pass
     
     print("✓ SQL views applied successfully")
 
