@@ -70,19 +70,18 @@ Excel connects directly to Postgres views via ODBC:
 
 ## Excel Integration Guide (Step-by-Step)
 
-### Method 1: Web API Connection (No Downloads Required) ⭐ RECOMMENDED
+### Method 1: Web API Connection
 
 This method works on **any platform** (Windows, Mac, Excel Online) and requires **no driver downloads**. It works perfectly with shared spreadsheets.
 
-**Quick Start for Neon Users**: ✅ **Already Deployed!** Use this stable, shareable URL in Excel:
-- **Combined Data (Recommended)**: `https://treasury-api-tawny.vercel.app/api/data`
+**Quick Start for Neon Users**: Use this stable, shareable URL in Excel:
+- **Combined Data**: `https://treasury-api-tawny.vercel.app/api/data`
   - Returns both FX rates and interest rates in one call
-  - **This is a stable production URL** - won't change with deployments
 - **Individual Endpoints** (also available):
   - FX Rates: `https://treasury-api-tawny.vercel.app/api/fx-rates`
   - Interest Rates: `https://treasury-api-tawny.vercel.app/api/interest-rates`
 
-Use this URL in Excel's "From Web" connector if using Windows.
+**Use this URL in Excel's "From Web" connector if using Windows.**
 
 **Auto-Refresh**: After connecting, enable "Refresh data when opening the file" in connection properties so data updates automatically every time the file is opened. See **Option C** below for step-by-step instructions.
 
