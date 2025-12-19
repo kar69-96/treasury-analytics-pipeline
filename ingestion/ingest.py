@@ -194,6 +194,21 @@ def create_tables_if_not_exists(engine):
     print("✓ Tables created/verified")
 
 
+def drop_views_if_exist(engine):
+    """Drop views that depend on the tables before replacing them."""
+    views_to_drop = ["fact_fx_rates_daily", "fact_interest_rates_daily", "ingestion_status"]
+    
+    with engine.begin() as conn:
+        for view_name in views_to_drop:
+            try:
+                conn.execute(text(f"DROP VIEW IF EXISTS {view_name} CASCADE"))
+            except Exception as e:
+                # View might not exist, which is fine
+                pass
+    
+    print("✓ Dropped existing views (if any)")
+
+
 def write_to_postgres(df: pd.DataFrame, table_name: str, engine):
     """Write DataFrame to Postgres table, replacing existing data."""
     df.to_sql(
@@ -269,6 +284,10 @@ def main():
         # Fetch FX rates
         print("\n--- Fetching FX Rates ---")
         fx_df = fetch_fx_rates(fred_api_key)
+        
+        # Drop views before replacing tables (views depend on tables)
+        print("\n--- Dropping existing views ---")
+        drop_views_if_exist(engine)
         
         # Write to Postgres
         print("\n--- Writing to Postgres ---")
