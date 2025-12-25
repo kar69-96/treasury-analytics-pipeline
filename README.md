@@ -22,7 +22,11 @@ The pipeline runs 24/7 in the cloud via GitHub Actions, ensuring Excel and other
    - FRED typically publishes data with a **1-2 day delay** from the actual observation date
    - For example, data for a Monday may not be available in FRED until Tuesday or Wednesday
    - The pipeline fetches the most recent data available from FRED at the time of ingestion
-   - If you see data only up to a specific date (e.g., December 5th), this reflects the latest data point published by FRED, not a pipeline issue
+   - If you see data only up to a specific date (e.g., December 5th), this reflects the latest data point published by FRED.
+
+**Excel Download**: Included on the repository. Demo pictures also included here:
+<img width="1488" height="712" alt="image" src="https://github.com/user-attachments/assets/0720bbf7-d846-4b75-b93e-dd01444a5570" />
+<img width="1488" height="712" alt="image" src="https://github.com/user-attachments/assets/23bac0a2-450e-412a-b955-84ea474f82b8" />
 
 
 ## Setup
